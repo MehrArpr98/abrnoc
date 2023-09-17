@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <div class="logo">
-      <img src="../assets/logo.svg" alt="logo-img"/>
+      <img src="../assets/logo.svg" alt="logo-img" />
     </div>
     <div class="d-flex justify-content-between flex-column h-100">
       <div class="list-group list-group-items1">
@@ -35,18 +35,14 @@
           <span class="button-text">Billing</span>
           <span class="arrow-down">
             <a
-              class
-              data-bs-toggle="collapse"
-              href="#childs"
+              @click="expanded = !expanded"              
               role="button"
-              aria-expanded="false"
-              aria-controls="collapse"
             >
-              <img src="../assets/arrow-down.svg" style="float: right" alt="arrow-down-img" />
+              <img src="../assets/arrow-down.svg" alt="arrow-down-img" />
             </a>
           </span>
         </button>
-        <div class="collapse" id="childs">
+        <div class="" :class="{ 'd-none' : !expanded,}" id="childs">
           <ul>
             <li>Billing 1</li>
             <li>Billing 2</li>
@@ -75,4 +71,13 @@
     </div>
   </div>
 </template>
+<script>
+import { ref } from 'vue'
+export default {
+  setup() {
+    const expanded = ref(false)
 
+    return { expanded }
+  }
+}
+</script>

@@ -2,7 +2,13 @@
   <main>
     <div class="card-label">Instance quantity:</div>
     <div class="counter-div">
-      <button role="button" aria-label="dec-button" class="btn dec" @click="decrement" :disabled="disableDec">
+      <button
+        role="button"
+        aria-label="dec-button"
+        class="btn dec"
+        @click="decrement"
+        :disabled="disableDec"
+      >
         <img src="../assets/dec.svg" alt="dec-img" />
       </button>
       <div class="number">{{ count }}</div>
@@ -22,13 +28,24 @@
       <span class="price-title">Total</span>
 
       <span class="price-number">
-        $ 57.95
+        $ {{ pickedsStore.pickedPlan.monthly_price }}
         <span class="price-number-per">/month</span>
       </span>
     </div>
 
     <div class="d-grid deploy-btn">
-      <button class="btn" type="button" :disabled=" !(pickedsStore.pickedPlan && pickedsStore.pickedoperatingSystem && pickedsStore.pickedoperatingSystemVersion >0)" @click="pickedsStore.validate">
+      <button
+        class="btn"
+        type="button"
+        :disabled="
+          !(
+            Object.keys(pickedsStore.pickedPlan).length !== 0 &&
+            Object.keys(pickedsStore.pickedoperatingSystem).length !== 0 &&
+            pickedsStore.pickedoperatingSystemVersion > 0
+          )
+        "
+        @click="pickedsStore.validate"
+      >
         Deploy now
       </button>
     </div>
@@ -41,13 +58,12 @@ import usePickedsStore from '../stores/pickeds'
 
 export default {
   setup() {
-    
     const disableDec = ref(true)
-    const count = ref(1)   
-    
+    const count = ref(1)
+
     const pickedsStore = usePickedsStore()
 
-    watch(count,() => {
+    watch(count, () => {
       pickedsStore.$patch((state) => {
         state.hostnameCount = count.value
       })
@@ -75,7 +91,7 @@ export default {
       }
     }
 
-    return { pickedsStore, disableDec, count, increment, decrement}
+    return { pickedsStore, disableDec, count, increment, decrement }
   }
 }
 </script>
